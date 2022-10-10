@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import {
+  EmployeesDto,
+  EmployeesService,
+  EmployeesController,
+} from './employees/index';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([EmployeesDto]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -13,12 +17,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'root',
       database: 'absdb',
-      entities: [],
+      entities: [EmployeesDto],
       synchronize: true,
-    }), 
+      dropSchema: true,
+    }),
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [EmployeesController],
+  providers: [EmployeesService],
 })
 export class AppModule {}
