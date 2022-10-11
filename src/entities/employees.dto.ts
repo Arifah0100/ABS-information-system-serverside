@@ -4,7 +4,6 @@ import { Employees } from 'src/interfaces/employees.interface';
 
 @Entity('employees')
 export class EmployeesDto implements Employees {
-  @ApiProperty({ required: false })
   @PrimaryGeneratedColumn()
   id: number;
 
