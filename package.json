@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.2",
     "@nestjs/typeorm": "^9.0.1",
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.0.1",
     "mysql2": "^2.3.3",
     "openapi": "^1.0.1",
     "passport": "^0.6.0",

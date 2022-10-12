@@ -26,4 +26,7 @@ export class UsersDto implements Users {
   @ApiProperty()
   @Column()
   userType: string;
+
+  @Column({ length: 255, default: '', nullable: true })
+  refreshToken?: string;
 }
