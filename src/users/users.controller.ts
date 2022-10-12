@@ -10,20 +10,22 @@ import {
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UsersDto } from '../entities/users.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('user')
 export class UsersController {
-  constructor(private userRepository: UsersService) {}
+  constructor(
+    private userRepository: UsersService,
+    private authService: AuthService,
+  ) {}
 
   @ApiBody({ type: UsersDto })
-  @ApiOperation({
-    summary: 'Add new User',
-    operationId: 'AddUser',
-  })
+  @ApiOperation({ summary: 'Add new user', operationId: 'AddUser' })
   @ApiResponse({ status: 200, type: UsersDto })
-  @Post()
-  async create(@Body() job: UsersDto): Promise<UsersDto> {
-    return this.userRepository.create(job);
+  @Post('/create')
+  create(@Body() user: UsersDto) {
+    return this.authService.register(user);
   }
 
   @ApiOperation({
