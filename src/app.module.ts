@@ -7,10 +7,13 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { EmployeesDto } from './entities/employees.dto';
 import { UsersDto } from './entities/users.dto';
+import { MediaService } from './media/media.service';
+import { MediaController } from './media/media.controller';
+import { MediaDto } from './entities/media.dto';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([EmployeesDto, UsersDto]),
+    TypeOrmModule.forFeature([EmployeesDto, UsersDto, MediaDto]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -18,13 +21,13 @@ import { UsersDto } from './entities/users.dto';
       username: 'root',
       password: 'root',
       database: 'absdb',
-      entities: [EmployeesDto, UsersDto],
-      // synchronize: true,
-      // dropSchema: true,
+      entities: [EmployeesDto, UsersDto, MediaDto],
+      synchronize: true,
+      dropSchema: true,
     }),
     AuthModule,
   ],
-  controllers: [EmployeesController, UsersController],
-  providers: [EmployeesService, UsersService],
+  controllers: [EmployeesController, UsersController, MediaController],
+  providers: [EmployeesService, UsersService, MediaService],
 })
 export class AppModule {}
