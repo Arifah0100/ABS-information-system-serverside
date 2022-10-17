@@ -34,4 +34,24 @@ export class EmployeesDto implements Employees {
   @ApiProperty({ default: 'Developer' })
   @Column()
   position: string;
+
+  @ApiProperty({ required: false })
+  @Column()
+  contactNumber: string;
+
+  @ApiProperty({ required: false })
+  @Column()
+  emailAddress: string;
+
+  @ApiProperty({ default: 'Male' })
+  @Column()
+  gender: string;
+
+  @ApiProperty({ required: false })
+  @Column()
+  address: string;
+
+  @ApiProperty({ required: false })
+  @Column()
+  profileId: string;
 }

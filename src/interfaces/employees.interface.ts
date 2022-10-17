@@ -7,4 +7,9 @@ export interface Employees {
   startDate: string;
   department: string;
   position: string;
+  profileId?: string;
+  contactNumber?: string;
+  emailAddress?: string;
+  gender: string;
+  address?: string;
 }
