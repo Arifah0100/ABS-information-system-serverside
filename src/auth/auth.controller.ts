@@ -8,7 +8,9 @@ import {
   UseGuards,
   Request,
   Body,
+  Put,
   Get,
+  Param,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -17,7 +19,12 @@ import {
   ApiParam,
   ApiResponse,
 } from '@nestjs/swagger';
-import { LoginUserDto, RefreshDto, AccessTokenDto } from './userAuth.dto';
+import {
+  LoginUserDto,
+  RefreshDto,
+  AccessTokenDto,
+  ChangePasswordDto,
+} from './userAuth.dto';
 import { UsersDto } from 'src/entities/users.dto';
 
 @Controller('auth')
@@ -111,5 +118,26 @@ export class AuthController {
       password: undefined,
       refreshToken: undefined,
     };
+  }
+
+  @ApiOperation({ summary: 'Change pin', operationId: 'ChangePin' })
+  @ApiResponse({ status: 200, type: UsersDto })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiBody({ type: ChangePasswordDto })
+  @Put('pin')
+  async changePin(@Request() req, @Body() changePass: ChangePasswordDto) {
+    return this.authService.updateUserPassword(
+      changePass.password,
+      req.user.userId,
+    );
+  }
+  @ApiOperation({ summary: 'Verify pin', operationId: 'verifyPin' })
+  @ApiResponse({ status: 200, type: UsersDto })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get('verify/:pin')
+  async verifyPin(@Request() req, @Param('pin') changePass: string) {
+    return this.authService.verifyPassword(changePass, req.user.userId);
   }
 }

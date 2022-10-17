@@ -66,3 +66,16 @@ export class AccessTokenDto {
   })
   refreshToken?: string;
 }
+
+export class ChangePasswordDto implements IUsers {
+  status: string;
+  dateCreated: string;
+  userType: string;
+  id?: number;
+  username: string;
+  @ApiProperty()
+  password: string;
+  refreshToken?: string;
+  inactive?: boolean;
+  profile: string;
+}
