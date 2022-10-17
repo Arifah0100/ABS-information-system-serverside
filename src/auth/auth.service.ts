@@ -64,6 +64,22 @@ export class AuthService {
     return await this.userService.create(user);
   }
 
+  async updateUserPassword(newPin: string, userId: number) {
+    const user = await this.userService.findOne(userId);
+    const hashedPassword = await bcrypt.hash(newPin, 10);
+    user.password = hashedPassword;
+    return await this.userService.update(userId, user);
+  }
+
+  async verifyPassword(newPin: string, userId: number) {
+    const user = await this.userService.findOne(userId);
+    const passwordMatched = await bcrypt.compare(newPin, user.password);
+    if (passwordMatched) {
+      return user;
+    }
+    return;
+  }
+
   async getUserIfRefreshTokenMatches(refreshToken: string, userId: number) {
     const user = await this.userService.findOne(userId);
     if (refreshToken === user.refreshToken) {
