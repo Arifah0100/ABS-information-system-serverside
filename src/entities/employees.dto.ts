@@ -9,7 +9,7 @@ export class EmployeesDto implements Employees {
 
   @ApiProperty({ default: '0821' })
   @Column()
-  empID: number;
+  empID: string;
 
   @ApiProperty({ default: 'Basam' })
   @Column()

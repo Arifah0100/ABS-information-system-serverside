@@ -1,6 +1,6 @@
 export interface Employees {
   id: number;
-  empID: number;
+  empID: string;
   firstName: string;
   middleName: string;
   lastName: string;
